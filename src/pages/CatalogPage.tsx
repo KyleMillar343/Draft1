@@ -1,12 +1,27 @@
 import { useState } from 'react';
-import { Search, Zap, MessageSquare, ShoppingCart, BarChart, Clock, Users, CheckCircle } from 'lucide-react';
+import { Search, Zap, MessageSquare, ShoppingCart, BarChart, Clock, Users, CheckCircle, Mail, Calendar, TrendingUp, FileText, Code, DollarSign, MessageCircle, BookOpen, ScanText, Eye, Headphones, UserPlus, Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import AgentModal from '../components/AgentModal';
+
+interface Agent {
+  id: number;
+  name: string;
+  category: string;
+  description: string;
+  capabilities: string[];
+  color: string;
+  detailedDescription: string;
+  features: string[];
+  icon: React.ReactNode;
+}
 
 export default function CatalogPage() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [hoveredAgent, setHoveredAgent] = useState<number | null>(null);
+  const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = [
     { id: 'all', name: 'All Agents', icon: Zap },
@@ -17,14 +32,17 @@ export default function CatalogPage() {
     { id: 'operations', name: 'Operations', icon: Users }
   ];
 
-  const agents = [
+  const agents: Agent[] = [
     {
       id: 1,
       name: 'Support Hero',
       category: 'customer',
       description: 'Handles customer inquiries 24/7.',
       capabilities: ['Instant responses', 'Multi-language support', 'Ticket routing'],
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-blue-500 to-cyan-500',
+      detailedDescription: 'Support Hero is an advanced AI agent designed to revolutionize your customer service operations. It provides instant, accurate responses to customer inquiries around the clock, ensuring your customers always receive the help they need.',
+      features: ['Natural language understanding', 'Context-aware conversations', 'CRM integration', 'Automated ticket creation', 'Response quality analytics', 'Custom knowledge base'],
+      icon: <Headphones className="w-10 h-10 text-white" />
     },
     {
       id: 2,
@@ -32,7 +50,10 @@ export default function CatalogPage() {
       category: 'sales',
       description: 'Qualifies leads and books meetings.',
       capabilities: ['Lead scoring', 'Calendar integration', 'Follow-up automation'],
-      color: 'from-pink-500 to-rose-500'
+      color: 'from-pink-500 to-rose-500',
+      detailedDescription: 'Sales Accelerator streamlines your sales pipeline by intelligently qualifying leads and automating meeting scheduling. It engages prospects at the perfect moment and ensures no opportunity slips through the cracks.',
+      features: ['Smart lead qualification', 'Automated follow-ups', 'Meeting scheduling', 'Sales pipeline tracking', 'Performance analytics', 'CRM synchronization'],
+      icon: <TrendingUp className="w-10 h-10 text-white" />
     },
     {
       id: 3,
@@ -40,7 +61,10 @@ export default function CatalogPage() {
       category: 'analytics',
       description: 'Analyzes trends and generates reports.',
       capabilities: ['Real-time dashboards', 'Predictive analytics', 'Custom reports'],
-      color: 'from-emerald-500 to-teal-500'
+      color: 'from-emerald-500 to-teal-500',
+      detailedDescription: 'Data Insight transforms raw data into actionable intelligence. It continuously analyzes your business metrics, identifies trends, and generates comprehensive reports that help you make informed decisions.',
+      features: ['Real-time data processing', 'Predictive modeling', 'Custom dashboards', 'Automated reporting', 'Trend identification', 'Data visualization'],
+      icon: <BarChart className="w-10 h-10 text-white" />
     },
     {
       id: 4,
@@ -48,7 +72,10 @@ export default function CatalogPage() {
       category: 'productivity',
       description: 'Drafts, schedules, and prioritizes emails.',
       capabilities: ['Smart drafting', 'Priority sorting', 'Auto-scheduling'],
-      color: 'from-orange-500 to-red-500'
+      color: 'from-orange-500 to-red-500',
+      detailedDescription: 'Email Assistant takes the burden out of email management by intelligently drafting responses, prioritizing important messages, and scheduling sends at optimal times. It learns your communication style and adapts accordingly.',
+      features: ['AI-powered drafting', 'Smart inbox sorting', 'Scheduled sending', 'Response templates', 'Email analytics', 'Follow-up reminders'],
+      icon: <Mail className="w-10 h-10 text-white" />
     },
     {
       id: 5,
@@ -56,7 +83,10 @@ export default function CatalogPage() {
       category: 'sales',
       description: 'Generates marketing copy and social posts.',
       capabilities: ['SEO optimization', 'Brand voice matching', 'Multi-platform'],
-      color: 'from-pink-500 to-rose-500'
+      color: 'from-pink-500 to-rose-500',
+      detailedDescription: 'Content Creator generates compelling marketing content that resonates with your audience. From social media posts to blog articles, it maintains your brand voice while optimizing for engagement and SEO.',
+      features: ['Multi-format content', 'SEO optimization', 'Brand consistency', 'A/B testing support', 'Content calendar', 'Performance tracking'],
+      icon: <FileText className="w-10 h-10 text-white" />
     },
     {
       id: 6,
@@ -64,7 +94,10 @@ export default function CatalogPage() {
       category: 'productivity',
       description: 'Schedules meetings and sends reminders.',
       capabilities: ['Calendar sync', 'Timezone detection', 'Automated reminders'],
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-blue-500 to-cyan-500',
+      detailedDescription: 'Meeting Coordinator eliminates the back-and-forth of scheduling by automatically finding optimal meeting times, sending invitations, and managing reminders. It integrates seamlessly with all major calendar platforms.',
+      features: ['Smart scheduling', 'Timezone handling', 'Automatic reminders', 'Conflict resolution', 'Meeting prep briefs', 'Calendar integration'],
+      icon: <Calendar className="w-10 h-10 text-white" />
     },
     {
       id: 7,
@@ -72,7 +105,10 @@ export default function CatalogPage() {
       category: 'operations',
       description: 'Reviews code and suggests improvements.',
       capabilities: ['Bug detection', 'Best practices', 'Security scanning'],
-      color: 'from-slate-500 to-gray-600'
+      color: 'from-slate-500 to-gray-600',
+      detailedDescription: 'Code Reviewer enhances code quality by automatically reviewing pull requests, identifying bugs, and suggesting improvements based on best practices. It helps maintain consistent code standards across your team.',
+      features: ['Automated code review', 'Security vulnerability detection', 'Best practice suggestions', 'Code style enforcement', 'Performance optimization tips', 'Documentation checks'],
+      icon: <Code className="w-10 h-10 text-white" />
     },
     {
       id: 8,
@@ -80,7 +116,10 @@ export default function CatalogPage() {
       category: 'operations',
       description: 'Processes invoices and tracks payments.',
       capabilities: ['Auto-extraction', 'Payment tracking', 'Expense categorization'],
-      color: 'from-amber-500 to-yellow-500'
+      color: 'from-amber-500 to-yellow-500',
+      detailedDescription: 'Invoice Manager automates your accounts payable process by extracting data from invoices, tracking payment status, and categorizing expenses. It reduces manual data entry and ensures timely payments.',
+      features: ['OCR data extraction', 'Payment tracking', 'Expense categorization', 'Approval workflows', 'Vendor management', 'Financial reporting'],
+      icon: <DollarSign className="w-10 h-10 text-white" />
     },
     {
       id: 9,
@@ -88,7 +127,10 @@ export default function CatalogPage() {
       category: 'analytics',
       description: 'Synthesizes customer feedback into insights.',
       capabilities: ['Sentiment analysis', 'Trend detection', 'Action recommendations'],
-      color: 'from-cyan-500 to-blue-500'
+      color: 'from-cyan-500 to-blue-500',
+      detailedDescription: 'Feedback Analyzer collects and analyzes customer feedback from multiple channels, identifying sentiment trends and providing actionable recommendations to improve your products and services.',
+      features: ['Multi-channel feedback collection', 'Sentiment analysis', 'Theme identification', 'Actionable insights', 'Trend monitoring', 'Priority scoring'],
+      icon: <MessageCircle className="w-10 h-10 text-white" />
     },
     {
       id: 10,
@@ -96,7 +138,10 @@ export default function CatalogPage() {
       category: 'customer',
       description: 'Walks new users through setup.',
       capabilities: ['Interactive tutorials', 'Progress tracking', 'Personalized paths'],
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-green-500 to-emerald-500',
+      detailedDescription: 'Onboarding Guide creates personalized onboarding experiences for new users, guiding them through setup with interactive tutorials and tracking their progress to ensure successful adoption.',
+      features: ['Interactive walkthroughs', 'Progress tracking', 'Personalized content', 'In-app guidance', 'Completion analytics', 'User segmentation'],
+      icon: <UserPlus className="w-10 h-10 text-white" />
     },
     {
       id: 11,
@@ -104,7 +149,10 @@ export default function CatalogPage() {
       category: 'operations',
       description: 'Extracts and organizes document data.',
       capabilities: ['OCR scanning', 'Auto-filing', 'Data extraction'],
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-blue-500 to-cyan-500',
+      detailedDescription: 'Document Processor intelligently extracts information from various document types, automatically organizing and filing them according to your business rules. It transforms unstructured documents into searchable, actionable data.',
+      features: ['OCR technology', 'Smart classification', 'Automated filing', 'Data extraction', 'Search functionality', 'Version control'],
+      icon: <ScanText className="w-10 h-10 text-white" />
     },
     {
       id: 12,
@@ -112,7 +160,10 @@ export default function CatalogPage() {
       category: 'sales',
       description: 'Tracks brand mentions and engagement.',
       capabilities: ['Real-time monitoring', 'Sentiment tracking', 'Auto-responses'],
-      color: 'from-pink-500 to-rose-500'
+      color: 'from-pink-500 to-rose-500',
+      detailedDescription: 'Social Monitor keeps a constant watch on social media platforms for brand mentions, tracking sentiment and engagement in real-time. It can automatically respond to common queries and alert you to important conversations.',
+      features: ['Real-time monitoring', 'Sentiment analysis', 'Automated responses', 'Competitor tracking', 'Engagement metrics', 'Alert system'],
+      icon: <Eye className="w-10 h-10 text-white" />
     }
   ];
 
@@ -221,16 +272,28 @@ export default function CatalogPage() {
                   ))}
                 </div>
 
-                <button
-                  onClick={handleDeployClick}
-                  className={`w-full py-2.5 rounded-lg font-medium transition-all ${
-                    hoveredAgent === agent.id
-                      ? `bg-gradient-to-r ${agent.color} text-white shadow-lg`
-                      : 'bg-slate-700/50 text-slate-300 border border-slate-600'
-                  }`}
-                >
-                  Deploy Agent
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => {
+                      setSelectedAgent(agent);
+                      setIsModalOpen(true);
+                    }}
+                    className="flex-1 py-2.5 rounded-lg font-medium transition-all bg-slate-700/50 text-slate-300 border border-slate-600 hover:bg-slate-700 flex items-center justify-center gap-2"
+                  >
+                    <Info className="w-4 h-4" />
+                    About
+                  </button>
+                  <button
+                    onClick={handleDeployClick}
+                    className={`flex-1 py-2.5 rounded-lg font-medium transition-all ${
+                      hoveredAgent === agent.id
+                        ? `bg-gradient-to-r ${agent.color} text-white shadow-lg`
+                        : 'bg-slate-700/50 text-slate-300 border border-slate-600'
+                    }`}
+                  >
+                    Deploy
+                  </button>
+                </div>
               </div>
             </div>
           ))}
@@ -254,6 +317,15 @@ export default function CatalogPage() {
           </button>
         </div>
       </div>
+
+      <AgentModal
+        agent={selectedAgent}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedAgent(null);
+        }}
+      />
     </div>
   );
 }
