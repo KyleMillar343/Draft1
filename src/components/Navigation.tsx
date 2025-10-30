@@ -43,6 +43,14 @@ export default function Navigation() {
             >
               Agent Catalog
             </Link>
+            <Link
+              to="/build-agent"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/build-agent') ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              Build Agent
+            </Link>
             <button
               onClick={scrollToContact}
               className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
@@ -80,6 +88,15 @@ export default function Navigation() {
               }`}
             >
               Agent Catalog
+            </Link>
+            <Link
+              to="/build-agent"
+              onClick={() => setIsMenuOpen(false)}
+              className={`text-sm font-medium transition-colors ${
+                isActive('/build-agent') ? 'text-cyan-400' : 'text-slate-300'
+              }`}
+            >
+              Build Agent
             </Link>
             <button
               onClick={scrollToContact}

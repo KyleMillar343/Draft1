@@ -1,7 +1,10 @@
-import { Bot, Sparkles } from 'lucide-react';
+import { Bot, Sparkles, Wand2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from './AnimatedBackground';
 
 export default function Hero() {
+  const navigate = useNavigate();
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -33,10 +36,11 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={scrollToContact}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              onClick={() => navigate('/build-agent')}
+              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group"
             >
-              Start Your Project
+              <Wand2 className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+              Start Building
             </button>
             <button
               onClick={scrollToContact}
