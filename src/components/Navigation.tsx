@@ -1,6 +1,7 @@
-import { Bot, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import AILogo from './AILogo';
 
 export default function Navigation() {
   const location = useLocation();
@@ -21,9 +22,8 @@ export default function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-800">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-            <Bot className="w-8 h-8 text-cyan-400" />
-            <span className="text-xl font-bold text-white">AI Agent Studio</span>
+          <Link to="/" className="flex items-center hover:opacity-90 transition-opacity">
+            <AILogo className="w-48 h-12" />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">

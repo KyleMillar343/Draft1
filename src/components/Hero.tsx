@@ -1,6 +1,7 @@
-import { Bot, Sparkles, Wand2 } from 'lucide-react';
+import { Wand2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from './AnimatedBackground';
+import AILogo from './AILogo';
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -15,11 +16,8 @@ export default function Hero() {
 
       <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="relative">
-              <Bot className="w-16 h-16 text-cyan-400" strokeWidth={1.5} />
-              <Sparkles className="w-6 h-6 text-yellow-400 absolute -top-1 -right-1 animate-pulse" />
-            </div>
+          <div className="flex items-center justify-center mb-8">
+            <AILogo className="w-64 h-64" />
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">

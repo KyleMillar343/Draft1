@@ -1,4 +1,5 @@
-import { Bot, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
+import AILogo from './AILogo';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,9 +9,8 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Bot className="w-8 h-8 text-cyan-400" />
-              <span className="text-xl font-bold">AI Agent Studio</span>
+            <div className="mb-4">
+              <AILogo className="w-48 h-32" />
             </div>
             <p className="text-slate-400 leading-relaxed">
               Building intelligent AI agents that transform how businesses operate and engage with customers.
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400">
-          <p>&copy; {currentYear} AI Agent Studio. All rights reserved.</p>
+          <p>&copy; {currentYear} ChatForge AI. All rights reserved.</p>
         </div>
       </div>
     </footer>
