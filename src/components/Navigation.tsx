@@ -51,6 +51,14 @@ export default function Navigation() {
             >
               Build Agent
             </Link>
+            <Link
+              to="/contact"
+              className={`text-sm font-medium transition-colors ${
+                isActive('/contact') ? 'text-cyan-400' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              Contact
+            </Link>
             <button
               onClick={scrollToContact}
               className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
@@ -97,6 +105,15 @@ export default function Navigation() {
               }`}
             >
               Build Agent
+            </Link>
+            <Link
+              to="/contact"
+              onClick={() => setIsMenuOpen(false)}
+              className={`text-sm font-medium transition-colors ${
+                isActive('/contact') ? 'text-cyan-400' : 'text-slate-300'
+              }`}
+            >
+              Contact
             </Link>
             <button
               onClick={scrollToContact}
