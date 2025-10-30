@@ -2,9 +2,23 @@ import { Wand2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import AnimatedBackground from './AnimatedBackground';
 import AILogo from './AILogo';
+import { useAuth } from '../contexts/AuthContext';
 
-export default function Hero() {
+interface HeroProps {
+  onAuthClick: (mode: 'signin' | 'signup') => void;
+}
+
+export default function Hero({ onAuthClick }: HeroProps) {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handleStartBuilding = () => {
+    if (isAuthenticated) {
+      navigate('/build-agent');
+    } else {
+      onAuthClick('signup');
+    }
+  };
 
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
@@ -34,7 +48,7 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => navigate('/build-agent')}
+              onClick={handleStartBuilding}
               className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2 group"
             >
               <Wand2 className="w-5 h-5 group-hover:rotate-12 transition-transform" />

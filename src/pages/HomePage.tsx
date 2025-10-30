@@ -3,10 +3,14 @@ import Features from '../components/Features';
 import ContactForm from '../components/ContactForm';
 import Footer from '../components/Footer';
 
-export default function HomePage() {
+interface HomePageProps {
+  onAuthClick: (mode: 'signin' | 'signup') => void;
+}
+
+export default function HomePage({ onAuthClick }: HomePageProps) {
   return (
     <>
-      <Hero />
+      <Hero onAuthClick={onAuthClick} />
       <Features />
       <ContactForm />
       <Footer />

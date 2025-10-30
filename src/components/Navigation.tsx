@@ -2,10 +2,17 @@ import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import AILogo from './AILogo';
+import { useAuth } from '../contexts/AuthContext';
+import UserMenu from './UserMenu';
 
-export default function Navigation() {
+interface NavigationProps {
+  onAuthClick?: (mode: 'signin' | 'signup') => void;
+}
+
+export default function Navigation({ onAuthClick }: NavigationProps) {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, isLoading } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -60,12 +67,29 @@ export default function Navigation() {
             >
               Contact
             </Link>
-            <button
-              onClick={scrollToContact}
-              className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
-            >
-              Get Started
-            </button>
+
+            {!isLoading && (
+              <>
+                {isAuthenticated ? (
+                  <UserMenu />
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => onAuthClick?.('signin')}
+                      className="px-5 py-2 text-slate-300 hover:text-white text-sm font-medium transition-colors"
+                    >
+                      Sign In
+                    </button>
+                    <button
+                      onClick={() => onAuthClick?.('signup')}
+                      className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg hover:from-cyan-600 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           <button
@@ -116,12 +140,29 @@ export default function Navigation() {
             >
               Contact
             </Link>
-            <button
-              onClick={scrollToContact}
-              className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg text-center"
-            >
-              Get Started
-            </button>
+
+            {!isLoading && !isAuthenticated && (
+              <>
+                <button
+                  onClick={() => {
+                    onAuthClick?.('signin');
+                    setIsMenuOpen(false);
+                  }}
+                  className="px-6 py-2 text-slate-300 border border-slate-600 rounded-lg text-sm font-medium text-center"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    onAuthClick?.('signup');
+                    setIsMenuOpen(false);
+                  }}
+                  className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-sm font-semibold rounded-lg text-center"
+                >
+                  Sign Up
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}
