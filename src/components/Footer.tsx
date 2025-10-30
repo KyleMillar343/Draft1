@@ -9,8 +9,9 @@ export default function Footer() {
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <div className="mb-4">
-              <AILogo className="w-48 h-32" />
+            <div className="flex items-center gap-3 mb-4">
+              <AILogo className="w-12 h-12" variant="compact" />
+              <span className="text-xl font-bold text-white">AI Agent Studio</span>
             </div>
             <p className="text-slate-400 leading-relaxed">
               Building intelligent AI agents that transform how businesses operate and engage with customers.
@@ -46,7 +47,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 text-center text-slate-400">
-          <p>&copy; {currentYear} ChatForge AI. All rights reserved.</p>
+          <p>&copy; {currentYear} AI Agent Studio. All rights reserved.</p>
         </div>
       </div>
     </footer>

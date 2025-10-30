@@ -17,7 +17,7 @@ export default function Hero() {
       <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center mb-8">
-            <AILogo className="w-64 h-64" />
+            <AILogo className="w-32 h-32 md:w-40 md:h-40" variant="full" />
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
